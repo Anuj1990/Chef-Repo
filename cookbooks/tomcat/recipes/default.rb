@@ -18,3 +18,14 @@
 #
 
 Chef::Log.warn('The default tomcat recipe does nothing. See the readme for information on using the tomcat resources')
+
+tomcat_install 'helloworld' do
+  version '8.0.36'
+  verify_checksum false
+  tarball_path '/tmp/apache-tomcat-8.0.36.tar.gz'
+end
+
+tomcat_service 'helloworld' do
+  action :start
+  env_vars [{ 'CATALINA_PID' => '/var/run/tomcat.pid' }]
+end
